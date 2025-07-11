@@ -65,13 +65,29 @@
             margin-left: 4rem;
             font-weight: 500;
             transition: 0.3s ease;
-            border-bottom: 3px solid transparent;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: #6ecff6;
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
         }
 
         nav a:hover,
         nav a.active{
             color: #6ecff6;
-            border-bottom: 3px solid #6ecff6;
         }
 
         .hamburger {
@@ -114,7 +130,6 @@
             nav a.active{
                 padding: 1rem;
                 border-radius: 0.5rem;
-                border-bottom: 0.5rem solid #6ecff6;
             }
         }
 
@@ -311,6 +326,7 @@
         .service-box:hover {
             border-color: #6ecff6;
             transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(110, 207, 246, 0.3);
         }
 
         .service-box i {
@@ -388,6 +404,7 @@
 
         .skill-box:hover {
             border-color: #6ecff6;
+            box-shadow: 0 0 20px rgba(110, 207, 246, 0.3);
         }
 
         .skill-box i {
@@ -420,6 +437,10 @@
             transition: 0.5s ease;
         }
 
+        .education-box:hover {
+            box-shadow: 0 0 20px rgba(110, 207, 246, 0.3);
+        }
+
         .education-box h3 {
             font-size: 2rem;
             color: #6ecff6;
@@ -448,6 +469,10 @@
             border-radius: 1rem;
             border-left: 0.5rem solid #6ecff6;
             transition: 0.5s ease;
+        }
+
+        .experience-box:hover {
+            box-shadow: 0 0 20px rgba(110, 207, 246, 0.3);
         }
 
         .experience-box h3 {
@@ -487,6 +512,13 @@
             border-radius: 0.8rem;
             margin: 0.7rem 0;
             border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .contact form .input-box input:focus,
+        .contact form textarea:focus {
+            border-color: #6ecff6;
+            box-shadow: 0 0 10px rgba(110, 207, 246, 0.5);
         }
 
         .contact form .input-box input {
@@ -532,6 +564,7 @@
             opacity: 0;
             visibility: hidden;
             transition: 0.5s;
+            box-shadow: 0 0 15px rgba(110, 207, 246, 0.5);
         }
 
         .back-to-top.active {
@@ -847,6 +880,28 @@ implementa procedure di virtualizzazione.</p>
                         top: targetElement.offsetTop - 100,
                         behavior: 'smooth'
                     });
+                }
+            });
+        });
+
+        // Highlight active section in navigation
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 300) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
                 }
             });
         });
