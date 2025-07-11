@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Portfolio Website</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html{
+            font-size: 62.5%;
+            scroll-behavior: smooth;
+        }
+
+        body{
+            width: 100%;
+            height: 100vh;
+            overflow-x: hidden;
+            background-color: black;
+            color: white;
+        }
+
+        header{
+            margin-top: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 9%;
+            background-color: transparent;
+            filter: drop-shadow(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo{
+            font-size: 3rem;
+            color: #6ecff6;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.5s ease;
+        }
+
+        .logo:hover{
+            transform: scale(1.1);
+        }
+
+        nav a{
+            font-size: 1.8rem;
+            color: white;
+            margin-left: 4rem;
+            font-weight: 500;
+            transition: 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.active{
+            color: #6ecff6;
+            border-bottom: 3px solid #6ecff6;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        @media(max-width:995px){
+            .hamburger {
+                display: block;
+            }
+
+            nav{
+                position: absolute;
+                display: none;
+                top: 100%;
+                right: 0;
+                width: 40%;
+                border-left: 3px solid #6ecff6;
+                border-bottom: 3px solid #6ecff6;
+                border-bottom-left-radius: 2rem;
+                padding: 2rem;
+                background-color: #161616;
+                border-top: 0.1rem solid rgba(0,0,0,0.1);
+            }
+
+            nav.active{
+                display: block;
+            }
+
+            nav a{
+                display: block;
+                font-size: 2rem;
+                margin: 3rem 0;
+            }
+
+            nav a:hover,
+            nav a.active{
+                padding: 1rem;
+                border-radius: 0.5rem;
+                border-bottom: 0.5rem solid #6ecff6;
+            }
+        }
+
+        section{
+            min-height: 100vh;
+            padding: 10rem 9% 5rem;
+        }
+
+        .home{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8rem;
+            background-color: black;
+        }
+
+        .home .home-content h1{
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        span{
+            color: #6ecff6;
+        }
+
+        .home-content h3{
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .home-content p{
+            font-size: 1.6rem;
+        }
+
+        .home-img{
+            border-radius: 50%;
+        }
+
+        .home-img img{
+            position: relative;
+            width: 32vw;
+            border-radius: 50%;
+            box-shadow: 0 0 25px #6ecff6;
+            cursor: pointer;
+            transition: 0.2s linear;
+            animation: profileGlow 3s ease-in-out infinite;
+        }
+
+        .home-img img:hover{
+            box-shadow: 0 0 50px #6ecff6;
+        }
+
+        /* Effetto pulsante luminoso per l'immagine del profilo */
+        @keyframes profileGlow {
+            0% {
+                box-shadow: 0 0 25px #6ecff6;
+            }
+            50% {
+                box-shadow: 0 0 50px #6ecff6, 0 0 80px rgba(110, 207, 246, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 25px #6ecff6;
+            }
+        }
+
+        .social-icons a{
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 4rem;
+            height: 4rem;
+            background-color: transparent;
+            border: 0.2rem solid #6ecff6;
+            font-size: 2rem;
+            border-radius: 50%;
+            margin: 3rem 1.5rem 3rem 0;
+            transition: 0.3s ease;
+            color: #6ecff6;
+        }
+
+        .social-icons a:hover{
+            color: black;
+            transform: scale(1.3) translateY(-5px);
+            background-color: #6ecff6;
+            box-shadow: 0  0 25px #6ecff6;
+        }
+
+        .btn{
+            display: inline-block;
+            padding: 1rem 2.8rem;
+            background-color: black;
+            border-radius: 4rem;
+            font-size: 1.6rem;
+            color: #6ecff6;
+            letter-spacing: 0.3rem;
+            font-weight: 600;
+            border: 2px solid #6ecff6;
+            transition: 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover{
+            transform: scale(1.03);
+            background-color: #6ecff6;
+            color: black;
+            box-shadow: 0 0 25px #6ecff6;
+        }
+
+        .typing-text{
+            font-size: 34px;
+            font-weight: 600;
+            min-width: 280px;
+        }
+
+        .typing-text span{
+            position: relative;
+        }
+
+        .typing-text span::before{
+            content: "Web Designer";
+            color: #6ecff6;
+            animation: words 20s infinite;
+        }
+
+        .typing-text span::after{
+            content: "";
+            background-color: black;
+            position: absolute;
+            width: calc(100% + 8px);
+            height: 100%;
+            border-left: 3px solid #6ecff6;
+            right: -8px;
+            animation: cursor 0.6s infinite, typing 20s steps(15) infinite;
+        }
+
+        @keyframes cursor{
+            to{
+                border-left: 3px solid transparent;
+            }
+        }
+
+        @keyframes words{
+            0%, 20%{
+                content: "Web Designer";
+            }
+            61%, 80%{
+                content: "Web Master";
+            }
+        }
+
+        @keyframes typing {
+            10%, 15%, 30%, 35%, 50%, 55%, 70%, 75%, 90%, 95% {
+                width: 0;
+            }
+            5%, 20%, 25%, 40%, 45%, 60%, 65%, 80%, 85% {
+                width: calc(100% + 8px);
+            }
+        }
+
+        /* Sections styling */
+        .section-title {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title span {
+            color: #6ecff6;
+        }
+
+        /* Services Section */
+        .services {
+            background-color: #111;
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-box {
+            position: relative;
+            background-color: #222;
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 0.2rem solid black;
+            transition: 0.5s ease;
+        }
+
+        .service-box:hover {
+            border-color: #6ecff6;
+            transform: scale(1.02);
+        }
+
+        .service-box i {
+            font-size: 5rem;
+            color: #6ecff6;
+            margin-bottom: 1rem;
+        }
+
+        .service-box h3 {
+            font-size: 2.4rem;
+        }
+
+        .service-box p {
+            font-size: 1.4rem;
+            margin: 1rem 0 2rem;
+        }
+
+        /* Pulsante luminoso per le box */
+        .glow-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 2.0rem;
+            height: 2.0rem;
+            background-color: rgba(110, 207, 246, 0.1);
+            border: 0px solid #6ecff6;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            color: #6ecff6;
+        }
+
+        .glow-btn:hover {
+            background-color: rgba(110, 207, 246, 0.2);
+            box-shadow: 0 0 10px rgba(110, 207, 246, 0.5);
+        }
+
+        /* Classe per l'effetto luminoso attivato */
+        .glowing {
+            background-color: rgba(110, 207, 246, 0.05) !important;
+            border-color: #6ecff6 !important;
+            box-shadow: 0 0 30px rgba(110, 207, 246, 0.3), 
+                        inset 0 0 30px rgba(110, 207, 246, 0.1) !important;
+        }
+
+        .glowing h3,
+        .glowing p {
+            text-shadow: 0 0 10px rgba(110, 207, 246, 0.3);
+        }
+
+        /* Skills Section */
+        .skills {
+            background-color: black;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-box {
+            position: relative;
+            background-color: #222;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 0.2rem solid black;
+            transition: 0.5s ease;
+        }
+
+        .skill-box:hover {
+            border-color: #6ecff6;
+        }
+
+        .skill-box i {
+            font-size: 4rem;
+            color: #6ecff6;
+            margin-bottom: 1rem;
+        }
+
+        .skill-box h3 {
+            font-size: 2rem;
+        }
+
+        /* Education Section */
+        .education {
+            background-color: #111;
+        }
+
+        .education-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .education-box {
+            position: relative;
+            background-color: #222;
+            padding: 2rem;
+            border-radius: 1rem;
+            border-left: 0.5rem solid #6ecff6;
+            transition: 0.5s ease;
+        }
+
+        .education-box h3 {
+            font-size: 2rem;
+            color: #6ecff6;
+        }
+
+        .education-box p {
+            font-size: 1.4rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Experience Section */
+        .experience {
+            background-color: black;
+        }
+
+        .experience-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .experience-box {
+            position: relative;
+            background-color: #222;
+            padding: 2rem;
+            border-radius: 1rem;
+            border-left: 0.5rem solid #6ecff6;
+            transition: 0.5s ease;
+        }
+
+        .experience-box h3 {
+            font-size: 2rem;
+            color: #6ecff6;
+        }
+
+        .experience-box p {
+            font-size: 1.4rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: #111;
+        }
+
+        .contact form {
+            max-width: 70rem;
+            margin: 1rem auto;
+            text-align: center;
+        }
+
+        .contact form .input-box {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .contact form .input-box input,
+        .contact form textarea {
+            width: 100%;
+            padding: 1.5rem;
+            font-size: 1.6rem;
+            color: white;
+            background-color: #222;
+            border-radius: 0.8rem;
+            margin: 0.7rem 0;
+            border: 1px solid #333;
+        }
+
+        .contact form .input-box input {
+            width: 49%;
+        }
+
+        .contact form textarea {
+            resize: none;
+            height: 20rem;
+        }
+
+        .contact form .btn {
+            margin-top: 2rem;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111;
+            padding: 3rem 9%;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 1.6rem;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 5rem;
+            height: 5rem;
+            background-color: #6ecff6;
+            color: black;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.5s;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #4da8d0;
+            box-shadow: 0 0 20px #6ecff6;
+        }
+
+        @media (max-width: 1000px){
+            .home{
+                gap: 4rem;
+            }
+        }
+
+        @media(max-width:995px){
+            .home{
+                flex-direction: column;
+                margin: 5rem 4rem;
+            }
+
+            .home .home-content h3{
+                font-size: 2.5rem;
+            }
+
+            .home-content h1{
+                font-size: 5rem;
+            }
+
+            .home-img img{
+                width: 70vw;
+                margin-top: 4rem;
+            }
+
+            .contact form .input-box input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#home" class="logo">Ray D</a>
+
+        <nav id="nav-menu">
+            <a href="#home" class="active">Home</a>
+            <a href="#services">Servizi</a>
+            <a href="#skills">Skills</a>
+            <a href="#education">Istruzione</a>
+            <a href="#experience">Esperienze</a>
+            <a href="#contact">Contatti</a>
+            <i class="fas fa-times" id="close-menu"></i>
+        </nav>
+
+        <div class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Home Section -->
+    <section class="home" id="home">
+        <div class="home-img">
+            <img src="https://previews.dropbox.com/p/thumb/ACvEKAJp7XX-jIB8KekQzy2vlgYVG3ucGYYbmE606tvw56xbwzgEtkiW03ukuUGqdKE9sAR_ohMf2Ep1Q6n8TStA4JaDWc2bbUhkzk-BWL0ZvTe7JtE77ELoeJTS-hB8BHRd-0alyjqbKs4TA1zP5rPG4q1m-4IZfwKjMHT5QgBrY1zW-EIyX9ASRf88IPvesn4oxtgdYSLzeUYg_bz5RHhYPK9jHmmuJ0b-6lsV-tqmT1W7Q1SdnioK90lJzsu_rItU7qU_4qHsjlKRuUKVn4JrGL-8wdymBYpSQCQEFg9XQET0535is8ityitfjYPgROiTJjUe0UzzDvWkjvxC9rq9/p.png?is_prewarmed=true" alt="">
+        </div>
+        <div class="home-content">
+            <h1>Ciao, sono <span>Ray</span></h1>
+            <h3 class="typing-text">Io sono  <span></span></h3>
+            <p>Alla base di ogni mio progetto metto sempre esperienza, passione e creatività, quella voglia di stupire il mondo portando qualcosa di innovativo, mai visto prima, creare prodotti e servizi che si distinguono andando oltre al branding, ma sviluppando un progetto che si evolve ogni volta generando un'evoluzione che richiama tutto il senso e il fascino di una rivoluzione!</p>
+            <div class="social-icons">
+                <a href="https://it.linkedin.com/in/ray-rearm-8290a4316"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/mrrearm"><i class="fa-brands fa-github"></i></a>
+                <a href="https://x.com/RayRearm?t=CXlMOB6nLK9YFCNGHbDOtg&s=09"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://instagram.com/mrrearm"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <a href="#contact" class="btn">Scegli me</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title">I miei <span>Servizi</span></h2>
+        <div class="services-container">
+            <div class="service-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <i class="fas fa-code"></i>
+                <h3>Web Development</h3>
+                <p>Sviluppatore Web Full-Stack specializzato in [Tecnologia, es. React, Node.js]. Scrivo codice pulito ed efficiente per costruire applicazioni web performanti e sicure.</p>
+            </div>
+            <div class="service-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <i class="fas fa-paint-brush"></i>
+                <h3>Web Design</h3>
+                <p>Web Designer con la passione per le interfacce pulite e le esperienze utente che lasciano il segno. Trasformo la visione dei brand in design digitali funzionali e di grande impatto visivo.</p>
+            </div>
+            <div class="service-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile Development</h3>
+                <p>Sviluppatore di App Mobile (iOS e Android) con la passione per le interfacce fluide e le performance impeccabili. Trasformo la tua idea in un'app di successo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <h2 class="section-title">My <span>Skills</span></h2>
+        <div class="skills-container">
+            <div class="skill-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <i class="fab fa-html5"></i>
+                <h3>HTML</h3>
+            </div>
+            <div class="skill-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <i class="fab fa-css3-alt"></i>
+                <h3>CSS</h3>
+            </div>
+            <div class="skill-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <i class="fab fa-js"></i>
+                <h3>JavaScript</h3>
+            </div>
+            <div class="skill-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <i class="fab fa-react"></i>
+                <h3>React</h3>
+            </div>
+            <div class="skill-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <i class="fab fa-node-js"></i>
+                <h3>Node.js</h3>
+            </div>
+            <div class="skill-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <i class="fas fa-database"></i>
+                <h3>Database</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education" id="education">
+        <h2 class="section-title">La mia <span>Istruzione</span></h2>
+        <div class="education-container">
+            <div class="education-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <h3>Tecnico Software</h3>
+                <p>Qualifica di Tecnico Software - 2024-2025</p>
+                <p>Il tecnico software è in grado di installare, configurare e personalizzare Sistemi Operativi e
+software applicativi secondo le esigenze del cliente, monitora le funzioni in esercizio
+interagendo, in presenza e a distanza, con gli utenti per la soluzione di problemi tecnici,
+esegue interventi di manutenzione e aggiornamento del software, di back up e recupero dati,
+implementa procedure di virtualizzazione.</p>
+            </div>
+            <div class="education-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <h3>Operatore di Terminali</h3>
+                <p>Qualifica di Operatore di Terminali 1996/1997</p>
+                <p>In informatica, un operatore di terminale è una persona che interagisce con un sistema informatico attraverso un'interfaccia a riga di comando, detta anche terminale. Questa interazione avviene tramite la digitazione di comandi testuali. In ambito lavorativo, un operatore di terminale può riferirsi anche a chi gestisce operazioni in un terminale fisico, come un terminale portuale o un terminale video.</p>
+            </div>
+            <div class="education-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <h3>Autodidatta</h3>
+                <p>Da sempre</p>
+                <p>Cerco sempre di aggiornarmi e arricchire il mio sapere e le mie esperienze.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experience">
+        <h2 class="section-title">Le mie <span>Esperienze</span></h2>
+        <div class="experience-container">
+            <div class="experience-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <h3>Senior Web Designer</h3>
+                <p>Dal 2000 in poi</p>
+                <p>Esperienza maturara durante gli anni di dedizione e passione.</p>
+            </div>
+            <div class="experience-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <h3>Web Designer</h3>
+                <p>Dal lontano 2000</p>
+                <p>E' iniziato come un esperimento,un gioco, poi è diventata passione.</p>
+            </div>
+            <div class="experience-box">
+                <button class="glow-btn" onclick="toggleGlow(this)">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+                <h3>Junior Web Developer</h3>
+                <p>Dal 2023</p>
+                <p>Applicazioni mobile e lato web per il massimo della portabilità, un servizio deve essere pronto e accessibile da qualsiasi dispositivo, in qualsiasi luogo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Contatta <span>Me</span></h2>
+        <form action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="7f68582f-139b-445c-9aa5-d0c093e4bec7">
+            <input type="hidden" name="redirect" value="https://mrrearm.github.io/portfolio/grazie.html">
+            <input type="checkbox" name="botcheck" style="display:none">
+            
+            <div class="input-box">
+                <input type="text" name="full_name" placeholder="Nome Completo" required>
+                <input type="email" name="email" placeholder="Indirizzo E-Mail" required>
+            </div>
+            <textarea name="message" placeholder="Il tuo Messaggio" required></textarea>
+            <button type="submit" class="btn">Invia</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Ray D - Ogni Diritto Riservato.</p>
+    </footer>
+
+    <!-- Back to top button -->
+    <a href="#home" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Funzione per attivare/disattivare l'effetto luminoso
+        function toggleGlow(button) {
+            const box = button.parentElement;
+            box.classList.toggle('glowing');
+            
+            // Cambia l'icona del pulsante
+            const icon = button.querySelector('i');
+            if (box.classList.contains('glowing')) {
+                icon.className = 'fas fa-lightbulb';
+                button.style.backgroundColor = 'rgba(110, 207, 246, 0.3)';
+            } else {
+                icon.className = 'fas fa-lightbulb';
+                button.style.backgroundColor = 'rgba(110, 207, 246, 0.1)';
+            }
+        }
+
+        // Hamburger menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        const closeMenu = document.getElementById('close-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.add('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
